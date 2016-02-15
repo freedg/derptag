@@ -22,11 +22,18 @@ function copyDerpibooruTags(){
 				tags = tagString.split(", ");
 			}
 		});
+	}).then(function(value) {
 	compiledTags = tags.join('\n');
 	compiledTags = compiledTags.replace("artist:", "creator:");
+	console.log("Fullfilled!");
+	}, function(reason) {
+		console.log("Reject!");
 	});
 }
 
-copyDerpibooruTags();
+copyDerpibooruTags().then(function(value) {
+	console.log(compiledTags);
+}, function(reason) {
+	console.log("Didn't Work!")
+});
 
-console.log(compiledTags);
