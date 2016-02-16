@@ -22,8 +22,22 @@ function copyDerpibooruTags(){
 		});
 	}).then(function(value) {
 		tags = tags.replace("artist:", "creator:");
-		
-		copyTagsToClipboard(tags);
+		addRating(tags);
+		// copyTagsToClipboard(tags);
 	});
 }
+
+function addRating(tags) {
+	$.getJSON("https://raw.githubusercontent.com/freedg/derptag/master/array.json", function(data){
+		$.each(data, function(key, value){
+			if(key === "rating"){
+				for (var i=0; i < 7; i++) {
+					if(tags == value[i]) {tags = tags.replace(tags, value[i]+":") }			// this will definetly have to be reworked, but it's the gist of what i want. 
+				}
+			}
+		});
+	});
+}
+addRating();
+
 copyDerpibooruTags();
