@@ -1,11 +1,11 @@
-var tags;
 function copyDerpibooruTags(){
-	var tagString;
+	var tags = [];
+	var tagString = '';
 	var id;
 
 	try {
 		id = window.location.href.match('/(\\d+)/*')[1];
-		}
+	}
 	catch(err) {
 		console.log("Not an image!")
 		return;
@@ -21,8 +21,9 @@ function copyDerpibooruTags(){
 			}
 		});
 	}).then(function(value) {
-		tags = tags.join('\n');
 		tags = tags.replace("artist:", "creator:");
+		
+		copyTagsToClipboard(tags);
 	});
 }
 copyDerpibooruTags();
