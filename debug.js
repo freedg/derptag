@@ -1,7 +1,5 @@
-var compiledTags;
-
+var tags;
 function copyDerpibooruTags(){
-	var tags;
 	var tagString;
 	var id;
 
@@ -23,17 +21,8 @@ function copyDerpibooruTags(){
 			}
 		});
 	}).then(function(value) {
-	compiledTags = tags.join('\n');
-	compiledTags = compiledTags.replace("artist:", "creator:");
-	console.log("Fullfilled!");
-	}, function(reason) {
-		console.log("Reject!");
+		tags = tags.join('\n');
+		tags = tags.replace("artist:", "creator:");
 	});
 }
-
-copyDerpibooruTags().then(function(value) {
-	console.log(compiledTags);
-}, function(reason) {
-	console.log("Didn't Work!")
-});
-
+copyDerpibooruTags();
