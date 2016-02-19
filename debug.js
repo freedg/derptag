@@ -48,10 +48,10 @@ function addNamespaces(tags) {
 			for (i=0; i < tags.length; i++){
 				if (tags[i] === character){
 					tags[i] = tags[i].replace(character, 'character:' + character)
-				} 
+				}
 			}
 			j++;
-		} console.log(tags);
+		}
 		copyTagsToClipboard(tags);
 	});
 }
