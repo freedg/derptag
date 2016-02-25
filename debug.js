@@ -52,6 +52,9 @@ function addNamespaces(tags) {
 			}
 			j++;
 		}
+		for (l=0; l <tags.length; l++){
+			tags[l] = tags[l].replace(artist:, 'creator:');
+		}
 		copyTagsToClipboard(tags);
 	});
 }
