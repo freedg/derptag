@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         oioi
 // @namespace    http://above.average.website
-// @version      1.0.6
+// @version      4.0
 // @description  Copy current post tags and rating on boorus and illustration2vec in to the clipboard for easy import in to a program or another booru.
 // @author       William Moodhe
 // @require      https://code.jquery.com/jquery-latest.js
