@@ -40,7 +40,19 @@ function addNamespaces(tags) {
 		} 
 	});
 	$.getJSON('https://raw.githubusercontent.com/freedg/derptag/master/array.json', function(array) {
-		var rating;
+		var species;
+		var j = 0;
+		while (array['species'][j]){
+			species = array['species'][j]
+			for (i=0; i < tags.length; i++){
+				if (species === tags[i]){
+					tags[i] = tags[i].replace(species, 'species:' + species)					
+				} 
+			}
+			j++;
+		} 
+	});
+	$.getJSON('https://raw.githubusercontent.com/freedg/derptag/master/array.json', function(array) {
 		var character
 		var j = 0;
 		while (array['character'][j]){
