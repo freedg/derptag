@@ -18,6 +18,8 @@
 // @include      *rule34.xxx/index.php?page=post*
 // @include      *chan.sankakucomplex.com/post/show/*
 // @include      *chan.sankakucomplex.com/?tags=*
+// @include      *idol.sankakucomplex.com/post/show/*
+// @include      *idol.sankakucomplex.com/?tags=*
 // @include      *e621.net/post/*
 // @include      *konachan.com/post/*
 // @include      *shimmie.katawa-shoujo.com/post/*
@@ -25,13 +27,16 @@
 // @include      *rule34hentai.net/post/*
 // @include      *tbib.org/index.php?page=post*
 // @include      *yande.re/post/*
-// @include      *nhentai.net/g/*
 // @include      *derpiboo.ru/*
+
+// nhentai
+// @include      *nhentai.net/g/*
 
 // @run-at       document-end
 // @grant        GM_setClipboard
 // @grant        GM_setValue
 // @grant        GM_getValue
+// @grant        GM_xmlhttpRequest
 
 // ==/UserScript==
 /* jshint -W097 */
@@ -221,12 +226,12 @@ function addNamespaces(tags) {
 			j++;
 		}
 		for (l=0; l <tags.length; l++){
-			tags[l] = tags[l].replace(artist:, 'creator:');
+			tags[l] = tags[l].replace('artist:', 'creator:');
 		}
 		copyTagsToClipboard(tags);
 	});
 }
-copyDerpibooruTags();
+
 
 function copyBooruTags(noRating)
 {
