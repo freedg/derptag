@@ -113,13 +113,13 @@ function copyNHentaiTags(noRating)
 {
     // nhentai has a json output we can use.
     // Which is nice because the tags are available even if viewing an individual file.
-    
+
     var id = window.location.href.match('/g/(\\d+)/*')[1];
     if (!id)
         return;
-    
+
     id = Number(id);
-    
+
     fetch('http://nhentai.net/g/' + id + '/json').then(function(response) {
         return response.json();
     }).then(function(json) {
@@ -162,13 +162,14 @@ function copyNHentaiTags(noRating)
 function copyDerpibooruTags(){
 	var tags = [];
 	var tagString = '';
+    var upvote = '';
 	var id;
 
 	try {
 		id = window.location.href.match('/(\\d+)/*')[1];
 	}
 	catch(err) {
-		console.log("Not an image!")
+		console.log("Not an image!");
 		return;
 	}
 	id = Number(id);
@@ -176,9 +177,15 @@ function copyDerpibooruTags(){
 
 	$.getJSON("https://derpibooru.org/" + id + ".json", function(JSONObjects){
 		$.each(JSONObjects, function(key, value){
+            if(key === "score"){
+                if(value >= 250){
+                    upvote = "upvotes galore";
+                }
+            }
 			if(key === "tags"){
-				tagString = value; 
+				tagString = value;
 				tags = tagString.split(", ");
+                tags.push(upvote);
 			}
 		});
 	}).then(function(value) {
@@ -191,41 +198,41 @@ function addNamespaces(tags) {
 		var rating;
 		var j = 0;
 		while (array['rating'][j]){
-			rating = array['rating'][j]
+			rating = array['rating'][j];
 			for (i=0; i < tags.length; i++){
 				if (rating === tags[i]){
-					tags[i] = tags[i].replace(rating, 'rating:' + rating)					
-				} 
+					tags[i] = tags[i].replace(rating, 'rating:' + rating);
+				}
 			}
 			j++;
-		} 
+		}
 	});
 	$.getJSON('https://raw.githubusercontent.com/freedg/derptag/master/array.json', function(array) {
 		var species;
 		var j = 0;
 		while (array['species'][j]){
-			species = array['species'][j]
+			species = array['species'][j];
 			for (i=0; i < tags.length; i++){
 				if (species === tags[i]){
-					tags[i] = tags[i].replace(species, 'species:' + species)					
-				} 
-			}
-			j++;
-		} 
-	});
-	$.getJSON('https://raw.githubusercontent.com/freedg/derptag/master/array.json', function(array) {
-		var character
-		var j = 0;
-		while (array['character'][j]){
-			character = array['character'][j]
-			for (i=0; i < tags.length; i++){
-				if (tags[i] === character){
-					tags[i] = tags[i].replace(character, 'character:' + character)
+					tags[i] = tags[i].replace(species, 'species:' + species);
 				}
 			}
 			j++;
 		}
-		for (l=0; l <tags.length; l++){
+	});
+	$.getJSON('https://raw.githubusercontent.com/freedg/derptag/master/array.json', function(array) {
+		var character;
+		var j = 0;
+		while (array['character'][j]){
+			character = array['character'][j];
+			for (i=0; i < tags.length; i++){
+				if (tags[i] === character){
+					tags[i] = tags[i].replace(character, 'character:' + character);
+				}
+			}
+			j++;
+		}
+		for (var l=0; l <tags.length; l++){
 			tags[l] = tags[l].replace('artist:', 'creator:');
 		}
 		copyTagsToClipboard(tags);
